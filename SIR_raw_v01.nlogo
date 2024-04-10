@@ -1,21 +1,15 @@
 ;agent attributes
 turtles-own[
-   time-infected
+
 ]
 
 ;global variables
 globals[
-   duration-of-infection              ;we assume that the duration of infection corresponds to the duration of infectiousness
-   probability-to-infect
+
 ]
 
 ;;;;;;;;initialization;;;;;;;;;
 to setup
-  clear-all
-  reset-ticks
-
-  set duration-of-infection 5
-  set probability-to-infect 0.1
 
   create-nodes
   create-network
@@ -25,41 +19,17 @@ end
 
 
 to create-nodes
-  set-default-shape turtles "circle"
-  create-turtles number-of-nodes[
-
-    setxy (random-xcor * 0.95) (random-ycor * 0.95)
-    set color grey
-    set size 0.8
-
-  ]
 
 end
 
+
 ; source see Virus on a Network by Uri Wilensky 2008
 to create-network
-
-  let num-links (mean-daily-social-contacts * number-of-nodes) / 2
-
-  while [count links < num-links ]
-  [
-    ask one-of turtles
-    [
-      let choice (min-one-of (other turtles with [not link-neighbor? myself])
-                   [distance myself])
-      if choice != nobody [ create-link-with choice ]
-    ]
-  ]
 
 end
 
 
 to outbreak
-
-  ask n-of outbreak-size turtles[
-     set color red
-     set time-infected 0
-  ]
 
 end
 
@@ -72,36 +42,20 @@ end
 
 to go
 
-  tick       ;one tick is one day in this model
-
   infect
   recover
 
-  if count turtles with [color = red] = 0
-    [stop]
-
 end
-
 
 
 to infect
 
-  ask turtles with [color = red]
-      [ask link-neighbors with [color = grey]
-        [set color red]
-  ]
 
 end
 
 
-
 to recover
 
-  ask turtles with [(color = red) and (time-infected = duration-of-infection)]
-      [set color green]
-
-  ask turtles with [color = red and (time-infected < duration-of-infection)]
-      [set time-infected time-infected + 1]
 
 end
 
@@ -178,7 +132,7 @@ number-of-nodes
 number-of-nodes
 0
 1000
-650.0
+318.0
 1
 1
 NIL
