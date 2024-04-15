@@ -14,7 +14,7 @@ to setup
   clear-all
   reset-ticks
 
-  set duration-of-infection 5
+  set duration-of-infection 5          ;days
   set probability-to-infect 0.1
 
   create-nodes
@@ -36,10 +36,11 @@ to create-nodes
 
 end
 
-; source see Virus on a Network by Uri Wilensky 2008
+; source see Virus on a Network by Uri Wilensky 200, slightly modified (see division by 2)
+; Note: node degree is not homogenious, mind behavior!
 to create-network
 
-  let num-links (mean-daily-social-contacts * number-of-nodes) / 2
+  let num-links (mean-daily-social-contacts * number-of-nodes) ;/ 2
 
   while [count links < num-links ]
   [
@@ -88,7 +89,8 @@ to infect
 
   ask turtles with [color = red]
       [ask link-neighbors with [color = grey]
-        [set color red]
+        [if random-float 1 <= probability-to-infect
+          [set color red]]
   ]
 
 end
@@ -178,7 +180,7 @@ number-of-nodes
 number-of-nodes
 0
 1000
-650.0
+1000.0
 1
 1
 NIL
@@ -208,7 +210,7 @@ mean-daily-social-contacts
 mean-daily-social-contacts
 3
 6
-3.0
+6.0
 1
 1
 NIL
