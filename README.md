@@ -1,2 +1,2 @@
 # IntroEpiMod
-NetLogo Code for workshop on infectious disease modeling
+Materials and NetLogo Code for workshop on infectious disease modeling
